@@ -1,0 +1,200 @@
+<!-- Grocery App Team :D
+CSC-435 / Spring 2020
+Final Project -->
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="UTF-8"> 
+
+	<title>New York Data</title> 
+
+	<!-- reset stylesheet, gets rid of default styling --> 
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+
+	<!-- FONTS: -->
+	<link href="https://fonts.googleapis.com/css?family=Libre+Franklin:200,300,400,700&display=swap" rel="stylesheet">
+
+	<!-- CSS: -->
+	<link href="globalstyle.css" rel="stylesheet">
+	<link href="order_style.css" rel="stylesheet">
+	
+	<!-- JAVASCRIPT -->
+
+	<script src="https://d3js.org/d3.v3.min.js"></script>
+	
+</head>
+
+<body>
+
+	<nav>
+		<a href ="index.html" id="one">Home</a>
+		<a href ="data.html" class="other">Data </a>
+		<a href ="about.html" class="other">About</a>
+	  </nav>
+
+	<header>
+        <h1> New York</h1>
+        <!-- <p>So why are we doing this? </p> -->
+        <img src="icons/icon_caregivers.png" alt="illustration of hands holding the world"> 
+	</header>
+
+	<main>
+		<!-- <p>
+			During the Summer of 2020 news media have showcased the negative effects of policing within the United States. From this, the country has sparked a debate on police's excessive force and militarization within the United States. My research is on doing a data visualization project that showcases the excessive force of police militarization in the United States. For my project, I visualized data that is centered around the police departments from 3 major cities (New York, Philadelphia, and Washington D.C). The main aim of this is to compare and contrast the resource divide within these cities, where I plan to compare governmental funding and policing funding in the hopes to tell a story as to why there is a low allocation of resources in those communities. This data visualization has an abolitionist framework advocating for a defunding of police, reduced militarization, and reallocation of resources to communities in need. Using data visualization I compare the staunch governmental divide of funding to the police compared to community-based funding like mental health resources, affordable housing infrastructures, and SNAP program recipients. Along with the data visualization, I found grassroots organizations that follow an abolitionist approach for their community within the cities I am visualizing. From this work, a database holds information on grassroots organizations and antiracist resources in the hopes to add accessibility to finding these resources as well as alleviating the need and support of the police. The technology used HTML, CSS,Node.js, D3.js, Relational Databases, Heroku, and Github. 
+
+
+		</p>  -->
+       
+		<script>
+
+
+			// set the dimensions and margins of the graph
+			var margin = {top: 20, right: 30, bottom: 100, left: 300},
+				width = 600 - margin.left - margin.right,
+				height = 400 - margin.top - margin.bottom;
+			
+			// append the svg object to the body of the page
+			var svg = d3.select("#my_dataviz")
+			  .append("svg")
+				.attr("width", width + margin.left + margin.right)
+				.attr("height", height + margin.top + margin.bottom)
+			  .append("g")
+				.attr("transform",
+					  "translate(" + margin.left + "," + margin.top + ")");
+			
+			// Parse the Data
+			d3.csv("Data/Capstone Police Budget Data - NewYorkBudget.csv", function(data) {
+			
+			  // Add X axis
+			  var x = d3.scaleLinear()
+				.domain([0,560000000])
+				.range([ 0, width]);
+			   
+			
+			  svg.append("g")
+				.attr("transform", "translate(0," + height + ")")
+				.call(d3.axisBottom(x))
+				.selectAll("text")
+				  .attr("transform", "translate(-10,0)rotate(-45)")
+				  .style("text-anchor", "end");
+			
+			  // Y axis
+			  var y = d3.scaleBand()
+				.range([ 0, height ])
+				.domain(data.map(function(d) { return d.Attrbuttes; }))
+				.padding(.5)
+			
+			  svg.append("g")
+				.call(d3.axisLeft(y))
+				
+			
+			  
+			
+			  //Bars
+			  svg.selectAll("rect")
+				.data(data)
+				.enter()
+				.append("rect")
+				.attr("x", x(0))
+				.attr("y", function(d) { return y(d.Attrbuttes); })
+				.attr("width", function(d) { return x(d.Amount); })
+				.attr("height", y.bandwidth() )
+				.attr("fill",function(d){
+				  if (d.Attrbuttes != ('Total Washington D.C Budget'))
+					return "rgb(" + 203 + ",195,227)";
+				  else
+					return "rgb(" + 138 + ",43,226)";
+											
+				  
+			
+			
+			
+				});
+				
+			  svg.selectAll("text")
+			  .data(data)
+			  .enter()
+			  .append("text")
+			  
+			  .attr("x", x(0))
+			  .attr("y", function(d) { return y(d.Attrbuttes); })
+			  .attr("width", function(d) { return x(d.Amount); })
+				
+			  .attr("height", y.bandwidth() )
+			  .text(444);
+			 
+			  
+			 
+			
+				// myRect.append("text")
+				//   // .attr("x", function (d) { return (scale(d.Amount)); })
+				//   // .attr("y", Height / 2)
+				//   // .attr("dy", ".35em")
+				//   //
+				//   .attr("text-anchor", "end")
+				//   .text(function (d) { return d.Amount; });
+			
+			  // svg.selectAll("g")
+			  //   .data(data)
+			  //   .enter()
+			  //   .append("text")
+				
+				// .text(function(d){return d.Amount;}
+			//    svg.append('text')
+			//     .text(function (d) { return d.Amount; });
+				
+				
+			
+			
+			
+			
+			
+				
+			
+			
+				// .attr("x", function(d) { return x(d.Country); })
+				// .attr("y", function(d) { return y(d.Value); })
+				// .attr("width", x.bandwidth())
+				// .attr("height", function(d) { return height - y(d.Value); })
+				// .attr("fill", "#69b3a2")
+			
+			})
+			
+			</script>
+
+
+
+		
+        <!-- <!-- <img src="NewYorkPieChart.png" alt="illustration of hands holding the world"  width="500" 
+        height="500"> -->
+
+
+
+        <h2>Analysis</h2>
+		<p>Seen in the barchart is the budget break down for New York city. With New York city’s nearly $99.7 billion taking up more than 5% of the city's total budget. Although that 5 % may seem a bit a small in correspondence to the social program budgeted by the city NYPD receive more than 90 % of programs allocated to mental health resources, affordable housing infrastructures,anti-poverty programs, houseless initiatives and Supplemental Nutrition Assistance Program (SNAP) program recipients and domestic violence support. This proves Angela Davis point mentioned in the literature review where argued that  police “devour public funds” (Davis 2003). </p>
+
+        <img src="NewYorkBarPhoto.png" alt="illustration of hands holding the world"  width="1500" 
+        height="656">
+
+		<img src="NycPieChartPhoto.png" alt="illustration of hands holding the world"  width="1400" 
+        height="656"> -->
+        <!-- <p>Analysis</p> -->
+        
+
+
+
+        
+        
+        
+
+	
+
+	</main>
+
+	<footer>
+	</footer>
+
+</body>
+</html>

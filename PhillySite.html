@@ -1,0 +1,146 @@
+<!-- Grocery App Team :D
+CSC-435 / Spring 2020
+Final Project -->
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="UTF-8"> 
+
+	<title>Philadelphia Data</title> 
+
+	<!-- reset stylesheet, gets rid of default styling --> 
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+
+	<!-- FONTS: -->
+	<link href="https://fonts.googleapis.com/css?family=Libre+Franklin:200,300,400,700&display=swap" rel="stylesheet">
+
+	<!-- CSS: -->
+	<link href="globalstyle.css" rel="stylesheet">
+	<link href="order_style.css" rel="stylesheet">
+	
+	<!-- JAVASCRIPT -->
+
+	<script src="https://d3js.org/d3.v3.min.js"></script>
+	
+</head>
+
+<body>
+
+	<nav>
+		<a href ="index.html" id="one">Home</a>
+        <a href ="Resources.html" class="other">Resources </a>
+
+		<a href ="data.html" class="other">Data </a>
+		<a href ="about.html" class="other">About</a>
+
+	  </nav>
+
+	<header>
+        <h1> Philadelphia</h1>
+        <!-- <p>So why are we doing this? </p> -->
+        <img src="icons/icon_caregivers.png" alt="illustration of hands holding the world"> 
+	</header>
+
+	<main>
+		<!-- <p>
+			During the Summer of 2020 news media have showcased the negative effects of policing within the United States. From this, the country has sparked a debate on police's excessive force and militarization within the United States. My research is on doing a data visualization project that showcases the excessive force of police militarization in the United States. For my project, I visualized data that is centered around the police departments from 3 major cities (New York, Philadelphia, and Washington D.C). The main aim of this is to compare and contrast the resource divide within these cities, where I plan to compare governmental funding and policing funding in the hopes to tell a story as to why there is a low allocation of resources in those communities. This data visualization has an abolitionist framework advocating for a defunding of police, reduced militarization, and reallocation of resources to communities in need. Using data visualization I compare the staunch governmental divide of funding to the police compared to community-based funding like mental health resources, affordable housing infrastructures, and SNAP program recipients. Along with the data visualization, I found grassroots organizations that follow an abolitionist approach for their community within the cities I am visualizing. From this work, a database holds information on grassroots organizations and antiracist resources in the hopes to add accessibility to finding these resources as well as alleviating the need and support of the police. The technology used HTML, CSS,Node.js, D3.js, Relational Databases, Heroku, and Github. 
+
+
+		</p>  -->
+		<script>
+			var width = 960,
+				height =500,
+				radius = Math.min(width,height)/2;
+			var color = d3.scale.ordinal()
+				.range(['#98abc5','#8a89a6','#7b6888','#6b486b','#a05d56']);
+			var arc = d3.svg.arc()
+				.outerRadius(radius-10)
+				.innerRadius(0);
+			var pie = d3.layout.pie()
+				.sort(null)
+				.value(function(d){return d.Amount;});
+			var svg = d3.select("body").append("svg")
+				.attr("width",width)
+				.attr("height",height)
+			   .append("g")
+				 .attr("transform","translate("+width/2+","+height/2+")");
+			d3.csv('PHLpiechar.csv',function(error,data){
+				data.forEach(function(d){
+					d.Amount = +d.Amount;
+				});
+				var g = svg.selectAll(".arc")
+					.data(pie(data))
+				  .enter().append("g")
+					.attr("class","arc");
+				g.append("path")
+					.attr("d",arc)
+					.style("fill",function(d){return color(d.data.Attrbuttes)});
+		
+				g.append('text')
+					.attr("transform",function(d){return "translate("+arc.centroid(d)+")";})
+					.attr("dy",".35em")
+					.style("text-anchor","middle")
+					.text(function(d){return d.data.Attrbuttes+d.data.Amount});
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+			});
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		</script>
+
+
+
+		
+        <!-- <!-- <img src="NewYorkPieChart.png" alt="illustration of hands holding the world"  width="500" 
+        height="500"> -->
+
+
+
+        <h2>Analysis</h2>
+		<p>
+			The data I gathered compares differently in the data gathered from the result in New York data visualizations.Similarly Philadelphia received immense support monterallity for their police department resulting in $956,632,151 compared to NYPD’s 5.5 billion. However although the NYPD did receive more funding than Philadelphia due to high population  this didn’t cease to end the issue. The Philadelphia Police department still received more funding in community programming than those seeking help for mental health resources, affordable housing infrastructures,anti-poverty programs, houseless initiatives and Supplemental Nutrition Assistance Program (SNAP) program recipients and domestic violence support.
+		</p>
+        <img src="PhillyBarchart.png" alt="illustration of hands holding the world"  width="1500" 
+        height="656">
+
+		<img src="PhillyPhotoPiechart.png" alt="illustration of hands holding the world"  width="1400" 
+        height="656"> -->
+        <!-- <p>Analysis</p> -->
+        
+
+
+
+        
+        
+        
+
+	
+
+	</main>
+
+	<footer>
+	</footer>
+
+</body>
+</html>
